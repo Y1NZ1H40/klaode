@@ -37,39 +37,25 @@ Screen {
     color: #7fb069;
 }
 
-/* Chat screen */
+/* Chat screen: plain scrolling transcript, no bubble backgrounds/borders */
 
 #chat-log {
     padding: 1 2;
+    background: transparent;
 }
 
 .message {
     height: auto;
     margin: 0 0 1 0;
-    padding: 1 2;
-    border: round #3a3a42;
-    background: #232329;
 }
 
-.message-assistant {
-    background: #26241f;
-    border: round #5a5236;
-}
-
-.message-user {
-    background: #20242c;
-    border: round #3a4a5a;
-}
-
-.message-role {
-    height: 1;
-    color: #d97757;
-    text-style: bold;
-    margin-bottom: 1;
+.message-user-text {
+    color: #8a8d91;
 }
 
 .message-body {
     height: auto;
+    background: transparent;
 }
 
 #update-status {

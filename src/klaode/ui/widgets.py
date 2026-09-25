@@ -3,8 +3,8 @@ from textual.containers import Vertical
 from textual.widgets import Markdown, Static
 
 
-class MessageBubble(Vertical):
-    """A message container styled like a Claude chat bubble."""
+class MessageBlock(Vertical):
+    """A plain-text transcript entry, with no bubble background or border."""
 
     def __init__(self, content: str, *, role: str = "assistant") -> None:
         super().__init__(classes=f"message message-{role}")
@@ -12,6 +12,7 @@ class MessageBubble(Vertical):
         self._role = role
 
     def compose(self) -> ComposeResult:
-        label = "Klaode" if self._role == "assistant" else "You"
-        yield Static(label, classes="message-role")
-        yield Markdown(self._content, classes="message-body")
+        if self._role == "user":
+            yield Static(f"> {self._content}", classes="message-user-text")
+        else:
+            yield Markdown(self._content, classes="message-body")
