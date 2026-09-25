@@ -11,7 +11,7 @@ from textual.widgets import Input, Static
 from klaode.content.blocks import split_into_blocks
 from klaode.content.code_injector import inject_code
 from klaode.content.loader import read_text_file
-from klaode.ui.widgets import MessageBubble
+from klaode.ui.widgets import MessageBlock
 
 REVEAL_DELAY_SECONDS = 0.4
 
@@ -57,8 +57,8 @@ class ChatScreen(Screen[None]):
     async def _reveal_blocks(self, blocks: list[str]) -> None:
         chat_log = self.query_one("#chat-log", VerticalScroll)
         for block in blocks:
-            bubble = MessageBubble(block, role="assistant")
-            await chat_log.mount(bubble)
+            line = MessageBlock(block, role="assistant")
+            await chat_log.mount(line)
             chat_log.scroll_end(animate=False)
             await asyncio.sleep(REVEAL_DELAY_SECONDS)
 
@@ -68,5 +68,5 @@ class ChatScreen(Screen[None]):
         if not text:
             return
         chat_log = self.query_one("#chat-log", VerticalScroll)
-        await chat_log.mount(MessageBubble(text, role="user"))
+        await chat_log.mount(MessageBlock(text, role="user"))
         chat_log.scroll_end(animate=False)
