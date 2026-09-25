@@ -6,15 +6,15 @@ from pathlib import Path
 from klaode.app import KlaodeApp
 from klaode.config import get_snippets_dir, get_texts_dir
 from klaode.content.loader import list_text_files
-from klaode.ui.welcome_screen import LOGIN_METHODS
 
 
 def _resolve_available_files(file_arg: str | None, texts_dir: Path) -> list[Path]:
     """Resolve the list of txt files offered as login methods on the welcome screen.
 
     An explicit file argument bypasses the picker entirely (a single option).
-    Otherwise, every txt file found in texts_dir becomes a login method,
-    capped at len(LOGIN_METHODS).
+    Otherwise every txt file found in texts_dir is returned uncapped; the
+    welcome screen itself decides how many real options to show and whether
+    to add its bonus "too many files" option.
     """
     if file_arg is not None:
         candidate = Path(file_arg)
@@ -24,7 +24,7 @@ def _resolve_available_files(file_arg: str | None, texts_dir: Path) -> list[Path
             raise SystemExit(f"找不到文本文件: {candidate}")
         return [candidate]
 
-    available = list_text_files(texts_dir)[: len(LOGIN_METHODS)]
+    available = list_text_files(texts_dir)
     if not available:
         raise SystemExit(
             f"'{texts_dir}' 目录下没有找到任何 .txt 文件，请先放入文件再运行。"
