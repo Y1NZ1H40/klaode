@@ -24,3 +24,9 @@ class KlaodeApp(App[None]):
 
     def _enter_chat(self) -> None:
         self.push_screen(ChatScreen(self._text_path, self._snippets_dir))
+
+    def go_home(self) -> None:
+        """Reset back to a fresh login screen, discarding the current chat."""
+        while len(self.screen_stack) > 1:
+            self.pop_screen()
+        self.push_screen(WelcomeScreen(on_continue=self._enter_chat))
