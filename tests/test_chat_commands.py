@@ -22,7 +22,7 @@ async def _type(pilot, text: str) -> None:
 
 
 async def test_home_command_returns_to_login_screen() -> None:
-    app = KlaodeApp(text_path=TEXTS_DIR / "example.txt", snippets_dir=SNIPPETS_DIR)
+    app = KlaodeApp(available_files=[TEXTS_DIR / "example.txt"], snippets_dir=SNIPPETS_DIR)
     async with app.run_test() as pilot:
         await _log_in(pilot)
         assert isinstance(app.screen, ChatScreen)
@@ -34,7 +34,7 @@ async def test_home_command_returns_to_login_screen() -> None:
 
 
 async def test_quit_command_exits_app() -> None:
-    app = KlaodeApp(text_path=TEXTS_DIR / "example.txt", snippets_dir=SNIPPETS_DIR)
+    app = KlaodeApp(available_files=[TEXTS_DIR / "example.txt"], snippets_dir=SNIPPETS_DIR)
     async with app.run_test() as pilot:
         await _log_in(pilot)
 

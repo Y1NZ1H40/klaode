@@ -14,19 +14,19 @@ class KlaodeApp(App[None]):
     CSS_PATH = "ui/theme.tcss"
     TITLE = "klaode"
 
-    def __init__(self, text_path: Path, snippets_dir: Path) -> None:
+    def __init__(self, available_files: list[Path], snippets_dir: Path) -> None:
         super().__init__()
-        self._text_path = text_path
+        self._available_files = available_files
         self._snippets_dir = snippets_dir
 
     def on_mount(self) -> None:
-        self.push_screen(WelcomeScreen(on_continue=self._enter_chat))
+        self.push_screen(WelcomeScreen(self._available_files, on_select=self._enter_chat))
 
-    def _enter_chat(self) -> None:
-        self.push_screen(ChatScreen(self._text_path, self._snippets_dir))
+    def _enter_chat(self, text_path: Path) -> None:
+        self.push_screen(ChatScreen(text_path, self._snippets_dir))
 
     def go_home(self) -> None:
         """Reset back to a fresh login screen, discarding the current chat."""
         while len(self.screen_stack) > 1:
             self.pop_screen()
-        self.push_screen(WelcomeScreen(on_continue=self._enter_chat))
+        self.push_screen(WelcomeScreen(self._available_files, on_select=self._enter_chat))

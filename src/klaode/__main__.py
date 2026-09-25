@@ -8,27 +8,28 @@ from klaode.config import get_snippets_dir, get_texts_dir
 from klaode.content.loader import list_text_files
 
 
-def _resolve_text_path(file_arg: str | None, texts_dir: Path) -> Path:
+def _resolve_available_files(file_arg: str | None, texts_dir: Path) -> list[Path]:
+    """Resolve the list of txt files offered as login methods on the welcome screen.
+
+    An explicit file argument bypasses the picker entirely (a single option).
+    Otherwise every txt file found in texts_dir is returned uncapped; the
+    welcome screen itself decides how many real options to show and whether
+    to add its bonus "too many files" option.
+    """
     if file_arg is not None:
         candidate = Path(file_arg)
         if not candidate.is_absolute():
             candidate = texts_dir / candidate
         if not candidate.is_file():
             raise SystemExit(f"找不到文本文件: {candidate}")
-        return candidate
+        return [candidate]
 
     available = list_text_files(texts_dir)
     if not available:
         raise SystemExit(
             f"'{texts_dir}' 目录下没有找到任何 .txt 文件，请先放入文件再运行。"
         )
-    if len(available) > 1:
-        names = ", ".join(p.name for p in available)
-        raise SystemExit(
-            f"'{texts_dir}' 目录下有多个 txt 文件（{names}），"
-            f"请通过参数指定要打开的文件，例如: klaode {available[0].name}"
-        )
-    return available[0]
+    return available
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -63,9 +64,9 @@ def main(argv: list[str] | None = None) -> None:
     texts_dir = args.texts_dir or get_texts_dir()
     snippets_dir = args.snippets_dir or get_snippets_dir()
 
-    text_path = _resolve_text_path(args.file, texts_dir)
+    available_files = _resolve_available_files(args.file, texts_dir)
 
-    app = KlaodeApp(text_path=text_path, snippets_dir=snippets_dir)
+    app = KlaodeApp(available_files=available_files, snippets_dir=snippets_dir)
     app.run()
 
 
