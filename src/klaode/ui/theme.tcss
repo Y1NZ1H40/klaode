@@ -29,6 +29,7 @@ Screen {
 
 #login-options {
     margin-top: 1;
+    width: auto;
     color: #e8e6e3;
 }
 
