@@ -2,14 +2,42 @@ Screen {
     background: #1a1a1e;
 }
 
-Header {
-    background: #16161a;
+/* Welcome / login screen */
+
+#welcome-box {
+    width: auto;
+    padding: 1 4;
+    border: round #5a5236;
+}
+
+#logo {
+    color: #d97757;
+    text-align: center;
+    width: auto;
+}
+
+#welcome-title {
+    text-align: center;
+    text-style: bold;
+    margin-top: 1;
+}
+
+#login-prompt {
+    margin-top: 1;
+    color: #a8a29e;
+}
+
+#login-options {
+    margin-top: 1;
     color: #e8e6e3;
 }
 
-Footer {
-    background: #16161a;
+#login-status {
+    margin-top: 1;
+    color: #7fb069;
 }
+
+/* Chat screen */
 
 #chat-log {
     padding: 1 2;
@@ -42,4 +70,26 @@ Footer {
 
 .message-body {
     height: auto;
+}
+
+#update-status {
+    height: 1;
+    padding: 0 2;
+    color: #7fb069;
+}
+
+#chat-input {
+    margin: 0 1;
+    border: round #3a3a42;
+    background: #1e1e22;
+}
+
+#chat-input:focus {
+    border: round #d97757;
+}
+
+#mode-status {
+    height: 1;
+    padding: 0 2;
+    color: #7a7873;
 }
