@@ -4,7 +4,7 @@ from textual.widgets import Markdown, Static
 
 
 class MessageBubble(Vertical):
-    """模仿 Claude 对话气泡样式的消息容器。"""
+    """A message container styled like a Claude chat bubble."""
 
     def __init__(self, content: str, *, role: str = "assistant") -> None:
         super().__init__(classes=f"message message-{role}")

@@ -1,5 +1,5 @@
 def split_into_blocks(text: str) -> list[str]:
-    """按空行切分文本为多个显示块，保持围栏代码块（```）完整不被切分。"""
+    """Split text into display blocks on blank lines, keeping fenced code blocks intact."""
     lines = text.splitlines()
     blocks: list[str] = []
     buffer: list[str] = []

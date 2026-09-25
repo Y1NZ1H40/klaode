@@ -16,7 +16,7 @@ REVEAL_DELAY_SECONDS = 0.4
 
 
 class KlaodeApp(App[None]):
-    """以类 Claude 对话窗口样式展示 txt 文本内容的终端应用。"""
+    """Terminal app that displays txt content in a Claude-like chat window style."""
 
     CSS_PATH = "ui/theme.tcss"
     TITLE = "klaode"
