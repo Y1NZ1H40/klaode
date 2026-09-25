@@ -17,6 +17,9 @@ REVEAL_DELAY_SECONDS = 0.4
 
 UPDATE_STATUS_TEXT = "✔ Update installed · Restart to update"
 
+QUIT_COMMAND = "quit"
+HOME_COMMAND = "home"
+
 MODES = [
     "auto mode on",
     "auto mode off",
@@ -49,6 +52,8 @@ class ChatScreen(Screen[None]):
         self.query_one("#mode-status", Static).update(self._render_mode())
 
     async def on_mount(self) -> None:
+        self.query_one("#chat-input", Input).focus()
+
         raw_text = read_text_file(self._text_path)
         processed_text = inject_code(raw_text, self._snippets_dir)
         blocks = split_into_blocks(processed_text)
@@ -67,6 +72,15 @@ class ChatScreen(Screen[None]):
         event.input.clear()
         if not text:
             return
+
+        command = text.lower()
+        if command == QUIT_COMMAND:
+            self.app.exit()
+            return
+        if command == HOME_COMMAND:
+            self.app.go_home()
+            return
+
         chat_log = self.query_one("#chat-log", VerticalScroll)
         await chat_log.mount(MessageBlock(text, role="user"))
         chat_log.scroll_end(animate=False)
