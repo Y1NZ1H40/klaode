@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "klaode"
+version = "0.1.0"
+description = "在终端中以类 Claude 对话窗口样式展示 txt 文本内容的小工具"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "textual>=0.58.0",
+]
+
+[project.scripts]
+klaode = "klaode.__main__:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/klaode"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

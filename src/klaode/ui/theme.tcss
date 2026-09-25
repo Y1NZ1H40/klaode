@@ -1,0 +1,45 @@
+Screen {
+    background: #1a1a1e;
+}
+
+Header {
+    background: #16161a;
+    color: #e8e6e3;
+}
+
+Footer {
+    background: #16161a;
+}
+
+#chat-log {
+    padding: 1 2;
+}
+
+.message {
+    height: auto;
+    margin: 0 0 1 0;
+    padding: 1 2;
+    border: round #3a3a42;
+    background: #232329;
+}
+
+.message-assistant {
+    background: #26241f;
+    border: round #5a5236;
+}
+
+.message-user {
+    background: #20242c;
+    border: round #3a4a5a;
+}
+
+.message-role {
+    height: 1;
+    color: #d97757;
+    text-style: bold;
+    margin-bottom: 1;
+}
+
+.message-body {
+    height: auto;
+}
